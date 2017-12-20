@@ -47,6 +47,7 @@
     "mongo-tenant": "^1.0.4",
     "mongoose": "^4.11.5",
     "natural": "^0.5.4",
+    "nodejieba": "^2.2.5",
     "pegjs": "^0.10.0",
     "pluralize": "^4.0.0",
     "require-dir": "^0.3.1",
