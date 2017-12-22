@@ -2,6 +2,7 @@
 lib/*
 logs/*
 test/fixtures/cache/*
+test/chs/fixtures/cache/*
 coverage/*
 
 # Node
