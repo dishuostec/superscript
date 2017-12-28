@@ -119,7 +119,7 @@ const detect = function detect(cb) {
     this.message.chineseExtract = nodejieba.extract(clean, 5);
 
     this.message.prev_clean = this.message.clean;
-    this.message.clean = _.map(cleanTags(tags), 'word').join(' ');
+    this.message.clean = clean;
   }
 
   cb();
@@ -177,10 +177,33 @@ const addQuestionTypes = function addQuestionTypes(cb) {
   cb();
 };
 
+const insertSpaceLeft = /[^ |([]/;
+const insertSpaceRight = /[^ |)\]]/;
+
+const fixup = function fixup(cb) {
+  this.message.clean = this.message.clean.replace(/[\u4E00-\u9FA5]+/g, (match, offset, string) => {
+    const cut = nodejieba.cut(match, true);
+
+    if (offset > 0 && insertSpaceLeft.test(string.charAt(offset - 1))) {
+      cut.unshift('');
+    }
+
+    const nextOffset = offset + match.length;
+    if (nextOffset < string.length && insertSpaceRight.test(string.charAt(nextOffset))) {
+      cut.push('');
+    }
+
+    return cut.join(' ');
+  });
+
+  cb();
+};
+
 export default {
   chineseDetect: detect,
   chineseAddEntities: addEntities,
   chineseAddPos: addPos,
   chineseAddQuestionTypes: addQuestionTypes,
+  chineseFixup: fixup,
 };
 
