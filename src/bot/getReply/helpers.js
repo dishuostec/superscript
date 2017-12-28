@@ -6,6 +6,7 @@ import postParse from '../postParse';
 import Utils from '../utils';
 
 const debug = debuglog('SS:Helpers');
+const chineseCharacter = /[\u4E00-\u9FA5]/;
 
 // This will find all the gambits to process by parent (topic or conversation)
 // and return ones that match the message
@@ -28,6 +29,9 @@ const processStars = function processStars(match, gambit, topic) {
         let starData = Utils.trim(match[j]);
         // Concepts are not allowed to be stars or captured input.
         starData = (starData[0] === '~') ? starData.substr(1) : starData;
+        if (chineseCharacter.test(starData)) {
+          starData = starData.replace(/ /g, '');
+        }
         stars.push(starData);
       }
     }
