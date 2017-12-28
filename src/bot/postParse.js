@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const searchRE = /<(name|noun|adverb|verb|pronoun|adjective)(s|[0-9]+)?>/g;
+const searchRE = /<(name|noun|adverb|verb|pronoun|adjective|entit(?:y|ie))(s|[0-9]+)?>/g;
 const inputReplyRE = /<(input|reply)([1-9])?>/g;
 
 /**
@@ -29,6 +29,8 @@ const postParse = function postParse(regexp, message, user) {
       case 'verb': replacements = message.verbs; break;
       case 'pronoun': replacements = message.pronouns; break;
       case 'adjective': replacements = message.adjectives; break;
+      case 'entity':
+      case 'entitie': replacements = message.entities; break;
       default: break;
     }
 
