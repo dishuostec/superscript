@@ -3,9 +3,19 @@ import _ from 'lodash';
 import async from 'async';
 import sfacts from 'sfacts';
 import parser from 'ss-parser';
+import chs from 'ss-chs';
 
 import SuperScript from '../../src/bot/index';
 
+const colorBlack = '\u001b[30m';
+const colorRed = '\u001b[31m';
+const colorGreen = '\u001b[32m';
+const colorYellow = '\u001b[33m';
+const colorBlue = '\u001b[34m';
+const colorMagenta = '\u001b[35m';
+const colorCyan = '\u001b[36m';
+const colorWhite = '\u001b[37m';
+const colorReset = '\u001b[0m';
 
 let bot;
 
@@ -126,7 +136,8 @@ const setupBot = function setupBot(fileCache, multitenant, callback) {
     pluginsPath: null,
     importFile: fileCache,
     useMultitenancy: multitenant,
-    messagePluginsPath: `${__dirname}/../../src/messagePlugins`,
+    messagePluginsPath: chs.messagePluginDir,
+    conversationTimeout: 1000 * 60 * 60 * 24, // for debug
   };
 
   return SuperScript.setup(options, (err, botInstance) => {
@@ -151,14 +162,23 @@ const before = function before(file, multitenant = false) {
 
 const reply = function botReply(userId, messageString, extraScope) {
   return new Promise((resolve, reject) => {
-    bot.reply(userId, messageString, (err, rep) => {
+    bot.reply(userId, messageString, (err, reply) => {
       if (err) {
         reject(err);
         return;
       }
 
-      console.log(messageString, '=>', rep.string);
-      resolve(rep);
+      if (reply.subReplies.length) {
+        console.log(`Q:${colorMagenta}%s${colorReset}`, messageString);
+        console.log(`A:${colorCyan}%o${colorReset}`, reply.subReplies);
+      } else if (reply.string === '') {
+        console.log(`Q:${colorRed}%s${colorReset}`, messageString);
+      } else {
+        console.log(`Q:${colorMagenta}%s${colorReset}`, messageString);
+        console.log(`A:${colorCyan}%s${colorReset}`, reply.string);
+      }
+
+      resolve(reply);
     }, extraScope);
   });
 };
