@@ -81,7 +81,7 @@ customFunction
     }
 
 newTopic
-  = "{" ws* "topic" ws* "=" ws* topicName:[A-Za-z0-9~_]* ws* "}"
+  = "{" ws* "topic" ws* "=" ws* topicName:[A-Za-z0-9~_\u4E00-\u9FA5]* ws* "}"
     {
       return {
         type: "newTopic",
@@ -153,7 +153,7 @@ delay
     }
 
 keyValuePair
-  = ws* key:[A-Za-z0-9_]+ ws* "=" ws* value:[A-Za-z0-9_'"]+ ws*
+  = ws* key:[A-Za-z0-9_]+ ws* "=" ws* value:[A-Za-z0-9_'"\u4E00-\u9FA5]+ ws*
     {
       return {
         key: key.join(""),
