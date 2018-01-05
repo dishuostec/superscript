@@ -34,13 +34,12 @@ const hasItem = function hasItem(key, bool, cb) {
   const memory = this.user.memory;
   const userId = this.user.id;
 
-  debug('getVar', key, bool, userId);
+  bool = _.indexOf([true, 'true'], bool) >= 0;
+
   memory.db.get({ subject: key, predicate: userId }, (err, res) => {
-    if (!_.isEmpty(res)) {
-      cb(null, (bool === 'true'));
-    } else {
-      cb(null, (bool === 'false'));
-    }
+    const check = bool === !_.isEmpty(res);
+    debug('filter [%s] %s item %s : %s', userId, (bool ? 'has' : 'not has'), key, check);
+    cb(null, check);
   });
 };
 
@@ -61,28 +60,28 @@ const get = function get(key, cb) {
 
 // Query SV return O and if that failes query OV return S
 const queryUserFact = function queryUserFact(subject, verb, cb) {
-  var subject = subject.replace(/\s/g,"_").toLowerCase();
-  var memory = this.user.memory;
-  memory.db.get({subject:subject, predicate:verb}, function(err, result){
+  var subject = subject.replace(/\s/g, '_').toLowerCase();
+  const memory = this.user.memory;
+  memory.db.get({ subject, predicate: verb }, (err, result) => {
     if (!_.isEmpty(result)) {
       cb(null, result[0].object);
     } else {
-      memory.db.get({object:subject, predicate:verb}, function(err, result){
+      memory.db.get({ object: subject, predicate: verb }, (err, result) => {
         if (!_.isEmpty(result)) {
           cb(null, result[0].subject);
         } else {
-          cb(null,"");
+          cb(null, '');
         }
       });
     }
   });
-}
+};
 
 const createUserFact = function createUserFact(subject, predicate, object, cb) {
   const memory = this.user.memory;
 
-  var subject = subject.replace(/\s/g,"_").toLowerCase();
-  var object = object.replace(/\s/g,"_").toLowerCase();
+  var subject = subject.replace(/\s/g, '_').toLowerCase();
+  var object = object.replace(/\s/g, '_').toLowerCase();
 
   memory.db.get({ subject, predicate, object }, (err, results) => {
     if (!_.isEmpty(results)) {
@@ -129,4 +128,6 @@ export default {
   inTopic,
   known,
   save,
+  del,
+  equal,
 };
