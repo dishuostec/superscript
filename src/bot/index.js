@@ -10,6 +10,7 @@ import chatSystem from './chatSystem';
 import getReply from './getReply';
 import Importer from './db/import';
 import Logger from './logger';
+import util from 'util';
 
 const debug = debuglog('SS:SuperScript');
 
@@ -126,6 +127,13 @@ class SuperScript {
       };
 
       Message.createMessage(messageString, messageOptions, (err, messageObject) => {
+
+        debug('message:', messageString, util.inspect(
+          _.omit(messageObject, ['factSystem', 'nlp']), {
+            depth: 10,
+            colors: true,
+          }));
+
         processHelpers.getTopic(system.chatSystem, system.topicName).then((topicData) => {
           const options = {
             user,
