@@ -21,6 +21,7 @@ SuperScript's power comes in its topics and conversations, which mimic typical h
 * Extensible plugin architecture to call your own APIs or do your own NLP if you want to!
 * A built in graph database using LevelDB. Each user has their own sub-level, allowing you to define complex relationships between entities.
 * [WordNet](http://wordnet.princeton.edu/), a database for word and concept expansion.
+* support Simplified Chinese (支持简体中文)
 
 ## Install
 
