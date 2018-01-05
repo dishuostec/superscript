@@ -224,7 +224,7 @@ const matchItorHandle = async function matchItorHandle(match, message, options) 
 };
 
 const afterHandle = function afterHandle(matches) {
-  debug.verbose(`Set of matches: ${matches}`);
+  debug.verbose('Set of matches: %O', matches);
 
   const debugAll = [];
   let props = {};
