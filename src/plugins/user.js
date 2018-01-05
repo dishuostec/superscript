@@ -58,6 +58,38 @@ const get = function get(key, cb) {
   });
 };
 
+const equal = function equal(key, value, cb) {
+  const memory = this.user.memory;
+  const userId = this.user.id;
+
+  debug('getVar', key, userId);
+
+  memory.db.get({ subject: key, predicate: userId }, (err, res) => {
+    if (res && res.length !== 0) {
+      cb(err, res[0].object === value);
+    } else {
+      cb(err, false);
+    }
+  });
+};
+
+const del = function del(key, cb) {
+  const memory = this.user.memory;
+  const userId = this.user.id;
+
+  debug('delVar', key, userId);
+
+  memory.db.get({ subject: key, predicate: userId }, (err, results) => {
+    if (!_.isEmpty(results)) {
+      memory.db.del(results[0], () => {
+        cb(null, '');
+      });
+    } else {
+      cb(err, '');
+    }
+  });
+};
+
 // Query SV return O and if that failes query OV return S
 const queryUserFact = function queryUserFact(subject, verb, cb) {
   var subject = subject.replace(/\s/g, '_').toLowerCase();
