@@ -2,7 +2,7 @@
 
 import program from 'commander';
 import fs from 'fs';
-import parser from 'ss-parser';
+import parser from '@dishuostec/ss-parser';
 import facts from 'sfacts';
 
 program

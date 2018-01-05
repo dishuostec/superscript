@@ -2,7 +2,7 @@ import fs from 'fs';
 import _ from 'lodash';
 import async from 'async';
 import sfacts from 'sfacts';
-import parser from 'ss-parser';
+import parser from '@dishuostec/ss-parser';
 import chs from 'ss-chs';
 
 import SuperScript from '../../src/bot/index';
@@ -168,15 +168,15 @@ const reply = function botReply(userId, messageString, extraScope) {
         return;
       }
 
-      if (reply.subReplies.length) {
-        console.log(`Q:${colorMagenta}%s${colorReset}`, messageString);
-        console.log(`A:${colorCyan}%o${colorReset}`, reply.subReplies);
-      } else if (reply.string === '') {
-        console.log(`Q:${colorRed}%s${colorReset}`, messageString);
-      } else {
-        console.log(`Q:${colorMagenta}%s${colorReset}`, messageString);
-        console.log(`A:${colorCyan}%s${colorReset}`, reply.string);
-      }
+      // if (reply.subReplies.length) {
+      //   console.log(`Q:${colorMagenta}%s${colorReset}`, messageString);
+      //   console.log(`A:${colorCyan}%o${colorReset}`, reply.subReplies);
+      // } else if (reply.string === '') {
+      //   console.log(`Q:${colorRed}%s${colorReset}`, messageString);
+      // } else {
+      //   console.log(`Q:${colorMagenta}%s${colorReset}`, messageString);
+      //   console.log(`A:${colorCyan}%s${colorReset}`, reply.string);
+      // }
 
       resolve(reply);
     }, extraScope);

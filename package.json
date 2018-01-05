@@ -1,5 +1,5 @@
 {
-  "name": "superscript",
+  "name": "@dishuostec/superscript",
   "version": "1.1.4",
   "description": "A dialog system and bot engine for creating human-like chat bots.",
   "main": "lib/bot/index.js",
@@ -15,12 +15,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/superscriptjs/superscript"
+    "url": "https://github.com/dishuostec/superscript"
   },
   "homepage": "http://superscriptjs.com",
-  "bugs": {
-    "url": "https://github.com/superscriptjs/superscript/issues"
-  },
   "bin": {
     "bot-init": "lib/bin/bot-init.js",
     "cleanup": "lib/bin/cleanup.js",
@@ -47,7 +44,6 @@
     "mongo-tenant": "^1.0.4",
     "mongoose": "^4.11.5",
     "natural": "^0.5.4",
-    "ss-chs": "^0.0.1",
     "pegjs": "^0.10.0",
     "pluralize": "^4.0.0",
     "require-dir": "^0.3.1",
@@ -55,8 +51,8 @@
     "roman-numerals": "^0.3.2",
     "safe-eval": "^0.3.0",
     "sfacts": "^1.0.1",
-    "ss-message": "^1.1.4",
-    "ss-parser": "^1.0.3",
+    "@dishuostec/ss-message": "^1.1.4",
+    "@dishuostec/ss-parser": "^1.0.3",
     "syllablistic": "^0.1.0",
     "wordpos": "^1.1.5"
   },

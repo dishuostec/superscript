@@ -1,5 +1,5 @@
 import debuglog from 'debug-levels';
-import Message from 'ss-message';
+import Message from '@dishuostec/ss-message';
 
 import processHelpers from './common';
 import getReply from '../getReply';

@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import mongoTenant from 'mongo-tenant';
 import debuglog from 'debug-levels';
 import async from 'async';
-import parser from 'ss-parser';
+import parser from '@dishuostec/ss-parser';
 
 import modelNames from '../modelNames';
 import Utils from '../../utils';

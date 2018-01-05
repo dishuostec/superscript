@@ -2,7 +2,7 @@ import fs from 'fs';
 import _ from 'lodash';
 import async from 'async';
 import sfacts from 'sfacts';
-import parser from 'ss-parser';
+import parser from '@dishuostec/ss-parser';
 
 import SuperScript from '../src/bot/index';
 
